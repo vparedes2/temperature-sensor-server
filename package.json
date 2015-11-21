@@ -1,0 +1,22 @@
+{
+  "name": "sensor-server",
+  "description": "collects the sensor data",
+  "version": "0.4.0",
+  "author": "BlueSkyFish <blueskyfish@blueskyfish.de>",
+  "keywords": [
+    "php",
+    "sensor",
+    "slim framework",
+    "restful",
+    "temperature",
+    "humidity"
+  ],
+  "devDependencies": {
+    "del": "1.2.1",
+    "dateformat": "1.0.11",
+    "gulp": "3.9.0",
+    "gulp-ejs": "1.1.1",
+    "gulp-rename": "1.2.2",
+    "minimist": "1.1.3"
+  }
+}

@@ -1,0 +1,21 @@
+#
+# Temperature Monitor - https://github.com/blueskyfish/temperature-sensor-server.git
+#
+# The MIT License (MIT)
+# Copyright (c) 2015 BlueSkyFish
+#
+# Distributed on "<%= datetime %> @ <%= target %>" in version <%= version %>
+#
+# Note
+# Setup the base url for the Slim framework
+#
+# e.g: http://www.example.com/what/ever/path/to/rest/server
+#
+# RewriteBase what/ever/path/to/rest/server
+#
+
+RewriteEngine On
+RewriteBase /temo/viewer/
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.php [QSA,L]

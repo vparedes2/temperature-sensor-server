@@ -1,0 +1,11 @@
+#
+# temperature-sensor-server - https://github.com/blueskyfish/temperature-sensor-server.git
+#
+# The MIT License (MIT)
+# Copyright (c) 2015 BlueSkyFish
+#
+# Distributed on "<%= datetime %> @ <%= target %>" in version <%= version %>
+#
+
+Order allow,deny
+Deny from all
