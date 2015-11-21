@@ -1,15 +1,26 @@
 {
   "name": "sensor-server",
-  "description": "collects the sensor data",
-  "version": "0.4.0",
+  "description": "The Temperature Sensor Server collects the sensor data from tsr",
+  "version": "0.5.0",
   "author": "BlueSkyFish <blueskyfish@blueskyfish.de>",
+  "readme": "see @ readme.md",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/blueskyfish/temperature-sensor-server.git"
+  },
+  "license": "MIT",
   "keywords": [
     "php",
     "sensor",
     "slim framework",
     "restful",
+    "ELV",
+    "USB-WDE1",
+    "sensor",
+    "sensor adapter",
     "temperature",
-    "humidity"
+    "humidity",
+    "smart home"
   ],
   "devDependencies": {
     "del": "1.2.1",

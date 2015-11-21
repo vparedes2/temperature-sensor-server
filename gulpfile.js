@@ -27,7 +27,7 @@ var
   target = params.target || '',
 
 // The name of the config file for the distribution
-  configFile = 'shares/config/' + target + '.config.php';
+  configFile = 'web/shares/config/' + target + '.config.php';
 
 var
   model = {
@@ -64,19 +64,19 @@ gulp.task('config-file', ['clean'], function () {
 });
 
 function taskCopyHtAccess(rootPath) {
-  return gulp.src(path.join(rootPath, '.htaccess'))
+  return gulp.src(path.join('web', rootPath, '.htaccess'))
     .pipe(ejs(model, { ext: ''}))
     .pipe(gulp.dest(path.join('dist', rootPath)));
 }
 
 function taskCopyIndex(rootPath) {
-  return gulp.src(path.join(rootPath, 'index.php'))
+  return gulp.src(path.join('web', rootPath, 'index.php'))
     .pipe(ejs(model, settings))
     .pipe(gulp.dest(path.join('dist', rootPath)));
 }
 
 function taskCopyLibrary(rootPath) {
-  return gulp.src(path.join(rootPath, 'lib/*.php'))
+  return gulp.src(path.join('web', rootPath, 'lib/**/.php'))
     .pipe(ejs(model, settings))
     .pipe(gulp.dest(path.join('dist', rootPath, 'lib')));
 }
@@ -106,19 +106,19 @@ gulp.task('copy-viewer-library', ['clean'], function () {
 });
 
 gulp.task('copy-libraries', ['clean', 'copy-libaries-htaccess', 'copy-hasher'], function () {
-  return gulp.src(['shares/lib/*.php'])
+  return gulp.src(['web/shares/lib/**/*.php'])
     .pipe(ejs(model, settings))
     .pipe(gulp.dest('dist/shares/lib'));
 });
 
 gulp.task('copy-libaries-htaccess', ['clean'], function () {
-  return gulp.src(['shares/.htaccess'])
+  return gulp.src(['web/shares/.htaccess'])
     .pipe(ejs(model, { ext: ''}))
     .pipe(gulp.dest('dist/shares'));
 });
 
 gulp.task('copy-hasher', ['clean'], function () {
-  return gulp.src(['shares/Hashids/**/*.php'])
+  return gulp.src(['web/shares/Hashids/**/*.php'])
     .pipe(ejs(model, settings))
     .pipe(gulp.dest('dist/shares/Hashids'));
 });
@@ -129,7 +129,7 @@ gulp.task('copy-slim', ['clean'], function () {
 });
 
 gulp.task('copy-index', ['clean'], function () {
-  return gulp.src('index.html')
+  return gulp.src('web/index.html')
     .pipe(ejs(model, { ext: '.html'}))
     .pipe(gulp.dest('dist'));
 });
