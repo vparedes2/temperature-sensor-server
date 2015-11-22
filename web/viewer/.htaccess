@@ -6,16 +6,9 @@
 #
 # Distributed on "<%= datetime %> @ <%= target %>" in version <%= version %>
 #
-# Note
-# Setup the base url for the Slim framework
-#
-# e.g: http://www.example.com/what/ever/path/to/rest/server
-#
-# RewriteBase what/ever/path/to/rest/server
-#
 
 RewriteEngine On
-RewriteBase /temo/viewer/
+RewriteBase <$= contextPath %>/viewer/
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^ index.php [QSA,L]

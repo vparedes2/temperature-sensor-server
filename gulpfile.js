@@ -10,38 +10,45 @@
 
 'use strict';
 
-var
-  path = require('path');
+var path = require('path');
 
-var
-  del = require('del'),
-  dateformat = require('dateformat'),
-  ejs = require('gulp-ejs'),
-  gulp = require('gulp'),
-  minimist = require('minimist'),
-  rename = require('gulp-rename');
+var del = require('del');
+var dateformat = require('dateformat');
+var ejs = require('gulp-ejs');
+var gulp = require('gulp');
+var minimist = require('minimist');
+var rename = require('gulp-rename');
 
-var
-  pkg = require('./package.json'),
-  params = minimist(process.argv.slice(2)),
-  target = params.target || '',
+var pkg = require('./package.json');
+var params = minimist(process.argv.slice(2));
+var target = params.target || '';
+var contextPath = params.contextPath || '';
+var configFile = 'web/shares/config/' + target + '.config.php';
 
-// The name of the config file for the distribution
-  configFile = 'web/shares/config/' + target + '.config.php';
 
-var
-  model = {
-    target: target,
-    datetime: dateformat(new Date(), 'yyyy-mm-dd HH:MM:ss'),
-    version: pkg.version
-  },
-  settings = {
-    ext: '.php'
-  };
+var model = {
+  target: target,
+  contextPath: adjustPath(contextPath),
+  datetime: dateformat('yyyy-mm-dd HH:MM:ss'),
+  version: pkg.version
+};
 
+var settings = {
+  ext: '.php'
+};
+
+function adjustPath(contextPath) {
+  if (!contextPath || contextPath.length === 0) {
+    return '';
+  }
+  if (contextPath.substr(0, 1) !== '/') {
+    return '/' + contextPath;
+  }
+  return contextPath;
+}
 
 gulp.task('clean', function (done) {
-  del(['dist'], function (err, paths) {
+  del(['dist'], function () {
     done();
   });
 });
@@ -50,6 +57,13 @@ gulp.task('check-target', ['clean'], function () {
   if (target === '') {
     console.log('');
     console.log('missing parameter "--target=name"');
+    console.log('cancel!!');
+    console.log('');
+    process.exit(1);
+  }
+  if (contextPath === '') {
+    console.log('');
+    console.log('missing parameter "--contextPath=path"');
     console.log('cancel!!');
     console.log('');
     process.exit(1);
@@ -163,6 +177,9 @@ gulp.task('default', function () {
   console.log('Sensor Server');
   console.log('');
   console.log('Usage:');
-  console.log('   gulp build --target=name   create a distribution with the config file of the target');
-  console.log('   gulp clean                 delete the distribution folder');
+  console.log('   gulp build --target=name --contextPath=path');
+  console.log('           create a distribution with the config file of the target');
+  console.log('           - target        is the target configuration (config.php)');
+  console.log('           - contextPath   is the context path on the server');
+  console.log('   gulp clean     delete the distribution folder');
 });
