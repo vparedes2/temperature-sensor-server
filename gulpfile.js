@@ -90,7 +90,7 @@ function taskCopyIndex(rootPath) {
 }
 
 function taskCopyLibrary(rootPath) {
-  return gulp.src(path.join('web', rootPath, 'lib/**/.php'))
+  return gulp.src(path.join('web', rootPath, 'lib/**/*.php'))
     .pipe(ejs(model, settings))
     .pipe(gulp.dest(path.join('dist', rootPath, 'lib')));
 }
@@ -119,7 +119,13 @@ gulp.task('copy-viewer-library', ['clean'], function () {
   return taskCopyLibrary('viewer');
 });
 
-gulp.task('copy-libraries', ['clean', 'copy-libaries-htaccess', 'copy-hasher'], function () {
+gulp.task('copy-libraries', [
+  'clean',
+  'copy-libaries-htaccess',
+  'copy-hasher',
+  'copy-libraries-slim'
+], function ()
+{
   return gulp.src(['web/shares/lib/**/*.php'])
     .pipe(ejs(model, settings))
     .pipe(gulp.dest('dist/shares/lib'));
@@ -129,6 +135,12 @@ gulp.task('copy-libaries-htaccess', ['clean'], function () {
   return gulp.src(['web/shares/.htaccess'])
     .pipe(ejs(model, { ext: ''}))
     .pipe(gulp.dest('dist/shares'));
+});
+
+gulp.task('copy-libraries-slim', ['clean'], function () {
+  return gulp.src(['web/shares/Slim/**/*.php'])
+    .pipe(ejs(model, settings))
+    .pipe(gulp.dest('dist/shares/Slim'));
 });
 
 gulp.task('copy-hasher', ['clean'], function () {
