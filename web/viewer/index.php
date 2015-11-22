@@ -59,15 +59,6 @@ $app->get('/info', function () use ($app) {
 
 
 //
-// Rest Action GET: /viewer/sensor/:id
-//
-$app->get('/sensor/:id', function ($id) use ($app) {
-    $provider = new SensorProvider($app);
-    $provider->sendSensor($id);
-});
-
-
-//
 // catch errors
 //
 $app->error(function (\Exception $e) use ($app) {
