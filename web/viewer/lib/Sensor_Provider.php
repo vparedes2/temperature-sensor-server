@@ -36,19 +36,24 @@ class SensorProvider
 
     public function sendInfo()
     {
-        // $hashKey = $this->app->getAuthToken();
+        $hashKey = $this->app->getAuthToken();
 
         $sensorList = array();
 
         $sql = 'SELECT
-            sn.group_id, sn.name_id, sn.title, sn.description, sn.icon,
-            sc.temperature, sc.humidity, sc.date
-          FROM `sensor-names` AS sn
-            INNER JOIN `sensor-currents` AS sc ON sn.group_id = sc.group_id AND sn.name_id = sc.name_id';
+          sn.group_id, sn.name_id, sn.title, sn.description, sn.icon,
+          sc.temperature, sc.humidity, sc.date
+        FROM `sensor-names` AS sn
+          INNER JOIN `sensor-currents` AS sc ON sn.group_id = sc.group_id AND sn.name_id = sc.name_id
+          INNER JOIN (
+            SELECT shr.group_id, shr.name_id
+            FROM `sensor-hash-rules` AS shr
+              INNER JOIN `sensor-hash` AS sh ON shr.hash_id = sh.hash_id AND (sh.hash = \'0000\' OR sh.hash = ?)
+            ) AS sh ON sh.group_id = sn.group_id AND sh.name_id = sn.name_id';
 
         $pdo = DB::openDatabase($this->app);
         $stmt = $pdo->prepare($sql);
-        $stmt->execute();
+        $stmt->execute(array($hashKey));
         while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
             $id = HashService::encode($row['group_id'], $row['name_id']);
             $sensorList[] = array(

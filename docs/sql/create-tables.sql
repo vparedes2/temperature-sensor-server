@@ -13,10 +13,6 @@ SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
---
--- Datenbank: `temo-server`
---
-
 -- --------------------------------------------------------
 
 --
@@ -93,8 +89,8 @@ INSERT INTO `sensor-readers` (`group_id`, `name`, `description`, `icon`) VALUES
 DROP TABLE IF EXISTS `sensors`;
 CREATE TABLE IF NOT EXISTS `sensors` (
   `sensor_id` int(11) NOT NULL,
-  `group_id` varchar(120) NOT NULL COMMENT 'the group id of the sensor reader',
-  `name_id` varchar(120) NOT NULL COMMENT 'the name id of the sensor',
+  `group_id` int(11) NOT NULL COMMENT 'the group id of the sensor reader',
+  `name_id` int(10) NOT NULL COMMENT 'the name id of the sensor',
   `temperature` int(11) NOT NULL COMMENT 'The temperature value is multiplied by 100',
   `humidity` int(11) NOT NULL COMMENT 'The humidity value is multiplied by 100',
   `date` datetime NOT NULL,
@@ -132,5 +128,45 @@ ALTER TABLE `sensors`
 --
 ALTER TABLE `sensors`
   MODIFY `sensor_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;SET FOREIGN_KEY_CHECKS=1;
+
+-- version 0.6.0 ------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `sensor-hash`
+--
+
+DROP TABLE IF EXISTS `sensor-hash`;
+CREATE TABLE IF NOT EXISTS `sensor-hash` (
+  `hash_id` int(11) NOT NULL,
+  `hash` varchar(120) NOT NULL COMMENT 'the unique hash',
+  `name` varchar(120) NOT NULL COMMENT 'A short name or description',
+  `enabled` enum('Y','N') NOT NULL DEFAULT 'Y'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='(temperature monitoring) The table contains the access hash for viewing the sensor data';
+
+--
+-- AUTO_INCREMENT für Tabelle `sensor-hash`
+--
+ALTER TABLE `sensor-hash`
+ADD PRIMARY KEY (`hash_id`);
+
+ALTER TABLE `sensor-hash`
+MODIFY `hash_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1;SET FOREIGN_KEY_CHECKS=1;
+
+--
+-- Tabellenstruktur für Tabelle `sensor-hash-rules`
+--
+
+DROP TABLE IF EXISTS `sensor-hash-rules`;
+CREATE TABLE IF NOT EXISTS `sensor-hash-rules` (
+  `group_id` int(11) NOT NULL COMMENT 'the group id of the sensor reader',
+  `name_id` int(11) NOT NULL COMMENT 'the name id of the sensor',
+  `hash_id` int(11) NOT NULL COMMENT 'the id of the hash'
+) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8 COMMENT='(temperature monitoring) The table contains the link between the table sensor-hash and sensor-names';
+
+--
+-- Indizes für die Tabelle `sensor-hash-rules`
+--
+ALTER TABLE `sensor-hash-rules`
+ADD PRIMARY KEY `HASH_RULES` (`group_id`,`name_id`, `hash_id`) USING BTREE;
 
 COMMIT;

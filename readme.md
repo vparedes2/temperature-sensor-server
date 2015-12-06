@@ -8,60 +8,51 @@ Temperature Sensor Server
 Table of Content
 ----------------
 
-* [Installation](#user-content-installation-on-server)
+* [Usage the Endpoints](#user-content-usage-the-endpoints)
+    * [Server Endpoints](#user-content-server-endpoints)
+    * [Viewer Endpoints](#user-content-viewer-endpoints)
 * [Database Schema](#user-content-database-schema)
 * [License](#user-content-license)
 
 
 
-Installation on Server
-----------------------
+Usage the Endpoints
+-------------------
 
-There are some steps
+The application is separated in different parts
 
-### Configuration
+* The `server` part has the functionality to receive sensor data and stores into the database
+* The `viewer` part has the functionality to delivery information about the temperature and humidity.
 
+### Server Endpoints
 
-* The application needs a config file.
-* Under `app/config/` is the file `config.example.php`.
-* Make a copy from the example config. The name of the config file must be the same as the target of the distribution.
-
-```
-$ cd app/config
-$ cp config.example.php test.config.php
-$ nano test.config.php
-```
-
-
-### Distribute
-
-For the distribution on the server there is Gulp task. The first time, the dependencies of Gulp must be installed with `npm install`.
-
-Open the terminal and enter:
-
-```
-$ gulp build --target=name
-```
-
-The parameter `target` is required. It is the name of the server.
+| Name                | Values
+|---------------------|--------------------------------------------------
+| **Endpoint**        | `/server/hello`
+| Method              | `GET`
+| Result              | ![Server HelloResult](docs/entity-server-hello-result.png)
+| Description         | The endpoint shows the version information about the temperature sensor service.
+|                     |
+| **Endpoint**        | `/server/upload`
+| Method              | `POST`
+| PayLoad             | ![Server UploadPayload](docs/entity-server-upload-payload.png)
+| Result              | ![Server UploadResult](docs/entity-server-upload-result.png)
+| Description         | The enpoint receive the sensor data and insert into the database and returns the id of sensor record
+|                     |
 
 
-### Setup the Rewrite rules
+### Viewer Endpoints
 
-Change in the file `.htaccess` the **RewriteBase** value.
-
-```
-RewriteEngine On
-RewriteBase /temo/
-
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^ index.php [QSA,L]
-```
-
-
-### Copy on server
-
-The destribution is in the folder `dist`. Copy this on the http server.
+| Name                | Values
+|---------------------|--------------------------------------------------
+| **Endpoint**        | `/viewer/hello`
+| Method              | `GET`
+| Result              | ![Viewer HelloResult](docs/entity-viewer-hello-result.png)
+| Description         | The endpoint shows the version information about the temperature sensor viewer.
+|                     |
+| **Endpoint**        | `/viewer/info`
+| Method              | `GET`
+| Result              | ![Viewer InfoResult](docs/entity-viewer-upload-result.png)
 
 
 Database Schema
@@ -70,6 +61,20 @@ Database Schema
 The sensor server application needs some MySQL database tables. Here is the database schema
 
 ![Sensor Server Database Schema](docs/database-schema.png)
+
+
+### Tables
+
+* `sensor-names`: This table contains the name of the sensor.
+* `sensor-readers`: The table contains the sensor group or reader.
+* `sensors`: The table contains the temperature and humidity data from the sensors.
+* `sensor-hash`: The table contains the access hash for viewing the sensor data.
+* `sensor-hash-rules`: The table contains the link between the table `sensor-hash` and `sensor-names`
+
+### Basic Data
+
+The basic data record is the public access with the hash `0000`. If a sensor name is in this hash group,
+then it shows for all users.
 
 
 License
