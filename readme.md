@@ -63,6 +63,20 @@ The sensor server application needs some MySQL database tables. Here is the data
 ![Sensor Server Database Schema](docs/database-schema.png)
 
 
+### Tables
+
+* `sensor-names`: This table contains the name of the sensor.
+* `sensor-readers`: The table contains the sensor group or reader.
+* `sensors`: The table contains the temperature and humidity data from the sensors.
+* `sensor-hash`: The table contains the access hash for viewing the sensor data.
+* `sensor-hash-rules`: The table contains the link between the table `sensor-hash` and `sensor-names`
+
+### Basic Data
+
+The basic data record is the public access with the hash `0000`. If a sensor name is in this hash group,
+then it shows for all users.
+
+
 License
 -------
 

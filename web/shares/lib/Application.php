@@ -67,7 +67,7 @@ class Application extends Slim
     {
         // may set the auth token in the response header
         $token = $this->getAuthToken();
-        if (is_string($token) && strlen($token) > 0 && $token != 'nothing') {
+        if (is_string($token) && strlen($token) > 0 && $token != '0000') {
             $this->response->headers->set(self::MONITORING_AUTH, $token);
         }
 
@@ -95,7 +95,7 @@ class Application extends Slim
     {
         $token = $this->request->headers->get(self::MONITORING_AUTH);
         if (is_null($token)) {
-            return 'nothing';
+            return '0000';
         }
         return $token;
     }
