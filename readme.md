@@ -12,6 +12,7 @@ Table of Content
     * [Server Endpoints](#user-content-server-endpoints)
     * [Viewer Endpoints](#user-content-viewer-endpoints)
 * [Database Schema](#user-content-database-schema)
+* [History](#user-content-history)
 * [License](#user-content-license)
 
 
@@ -75,6 +76,14 @@ The sensor server application needs some MySQL database tables. Here is the data
 
 The basic data record is the public access with the hash `0000`. If a sensor name is in this hash group,
 then it shows for all users.
+
+History
+-------
+
+| Version | Date       | Description
+|---------|------------|----------------------------------------
+| v0.6.0  | 2015-12-07 | Viewer shows the sensor data with a hash pin
+| v0.5.0  | 2015-11-xx | Deployment process.
 
 
 License
