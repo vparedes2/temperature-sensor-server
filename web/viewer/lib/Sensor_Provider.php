@@ -40,7 +40,7 @@ class SensorProvider
 
         $sensorList = array();
 
-        $sql = 'SELECT
+        $sql = 'SELECT DISTINCT
           sn.group_id, sn.name_id, sn.title, sn.description, sn.icon,
           sc.temperature, sc.humidity, sc.date
         FROM `sensor-names` AS sn
