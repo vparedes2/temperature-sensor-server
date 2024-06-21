@@ -34,4 +34,12 @@ entrada_nivel.pack()
 var_tipo_tanque = tk.IntVar()
 var_tipo_tanque.set(1)
 tk.Radiobutton(ventana, text="Tanque de 5400 m³", variable=var_tipo_tanque, value=1).pack()
-tk.Radiobutton(ventana, text="Tanque de
+tk.Radiobutton(ventana, text="Tanque de 4100 m³", variable=var_tipo_tanque, value=2).pack()
+
+tk.Button(ventana, text="Calcular", command=calcular_contenido).pack()
+
+resultado = tk.Label(ventana, text="")
+resultado.pack()
+
+# Iniciar el bucle principal
+ventana.mainloop()
