@@ -20,7 +20,7 @@ def calcular_contenido(nivel_vacio, tipo_tanque):
     # Calcular el área de la base
     area_base = math.pi * (radio ** 2)
     
-    return volumen_agua, area_base
+    return volumen_agua, area_base, radio
 
 st.title("Calculadora de Tanques Australianos")
 
@@ -29,23 +29,4 @@ nivel_vacio = st.number_input("Nivel de vacío (cm):", min_value=0.0, max_value=
 tipo_tanque = st.selectbox("Tipo de tanque:", ["5400 m³", "4100 m³"])
 
 if st.button("Calcular"):
-    volumen_agua, area_base = calcular_contenido(nivel_vacio, tipo_tanque)
-    
-    st.success(f"Contenido de agua: {volumen_agua:.2f} m³")
-    st.info(f"Área de la base: {area_base:.2f} m²")
-
-# Agregar información adicional
-st.markdown("---")
-st.markdown("""
-## Información sobre los tanques australianos
-
-Los tanques australianos son estructuras de almacenamiento de agua utilizadas principalmente en zonas rurales. 
-Características:
-- Altura: 3 metros
-- Capacidades: 5400 m³ o 4100 m³
-- Forma: Cilíndrica
-
-El nivel de vacío se mide desde la parte superior del tanque hasta el nivel del agua.
-- 0 cm de vacío significa que el tanque está completamente lleno.
-- 300 cm de vacío significa que el tanque está completamente vacío.
-""")
+    volumen_agua, area_base, radio = calcular_contenido(nivel_vacio,
