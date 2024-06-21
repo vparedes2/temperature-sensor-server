@@ -18,7 +18,7 @@ st.title("Calculadora de Contenido de Fluido en Mangueras")
 
 diametro = st.selectbox("Seleccione el diámetro de la manguera:", [12, 10])
 longitud = st.number_input("Ingrese la longitud de la manguera (metros):", min_value=0.1, value=1.0, step=0.1)
-nivel = st.selectbox("Seleccione el nivel de llenado:", [25, 50, 75, 100])
+nivel = st.selectbox("Seleccione el nivel de llenado %:", [25, 50, 75, 100])
 
 if st.button("Calcular"):
     volumen = calcular_volumen(diametro, longitud, nivel)
