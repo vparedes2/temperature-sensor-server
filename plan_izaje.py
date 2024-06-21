@@ -9,7 +9,7 @@ def calcular_plan_izaje(peso_carga, radio_operacion, capacidad_grua, longitud_pl
     
     return momento_carga, factor_seguridad, angulo_pluma
 
-st.title("Plan de Izaje para Hidrogrúa")
+st.title("Plan de Izaje para Hidrogrúa - Rio Limay OFS")
 
 # Entradas del usuario
 peso_carga = st.number_input("Peso de la carga (kg)", min_value=0.0, step=100.0)
