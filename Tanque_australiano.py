@@ -1,45 +1,36 @@
-import tkinter as tk
-from tkinter import messagebox
+import streamlit as st
+import math
 
-def calcular_contenido():
-    try:
-        nivel_vacio = float(entrada_nivel.get())
-        tipo_tanque = var_tipo_tanque.get()
+def calcular_contenido(nivel_vacio, tipo_tanque):
+    # Definir el volumen total según el tipo de tanque
+    volumen_total = 5400 if tipo_tanque == "5400 m³" else 4100
+    
+    # Calcular el radio del tanque
+    radio = (volumen_total / (3 * math.pi)) ** (1/3)
+    
+    # Calcular la altura del agua
+    altura_agua = 3 - (nivel_vacio / 100)
+    
+    # Calcular el volumen de agua
+    volumen_agua = math.pi * (radio ** 2) * altura_agua
+    
+    # Calcular el área de la base
+    area_base = math.pi * (radio ** 2)
+    
+    return volumen_agua, area_base
+
+def main():
+    st.title("Calculadora de Tanques Australianos")
+
+    # Entrada de datos
+    nivel_vacio = st.number_input("Nivel de vacío (cm):", min_value=0.0, max_value=300.0, step=0.1)
+    tipo_tanque = st.selectbox("Tipo de tanque:", ["5400 m³", "4100 m³"])
+
+    if st.button("Calcular"):
+        volumen_agua, area_base = calcular_contenido(nivel_vacio, tipo_tanque)
         
-        if tipo_tanque == 1:
-            volumen_total = 5400
-            radio = (volumen_total / (3 * 3.14159))**(1/3)
-        else:
-            volumen_total = 4100
-            radio = (volumen_total / (3 * 3.14159))**(1/3)
-        
-        altura_agua = 3 - (nivel_vacio / 100)
-        volumen_agua = 3.14159 * (radio**2) * altura_agua
-        area_base = 3.14159 * (radio**2)
-        
-        resultado.config(text=f"Contenido: {volumen_agua:.2f} m³\nÁrea base: {area_base:.2f} m²")
-    except ValueError:
-        messagebox.showerror("Error", "Por favor, ingrese un número válido para el nivel de vacío.")
+        st.success(f"Contenido de agua: {volumen_agua:.2f} m³")
+        st.info(f"Área de la base: {area_base:.2f} m²")
 
-# Crear la ventana principal
-ventana = tk.Tk()
-ventana.title("Calculadora de Tanques Australianos")
-ventana.geometry("300x200")
-
-# Crear y colocar los widgets
-tk.Label(ventana, text="Nivel de vacío (cm):").pack()
-entrada_nivel = tk.Entry(ventana)
-entrada_nivel.pack()
-
-var_tipo_tanque = tk.IntVar()
-var_tipo_tanque.set(1)
-tk.Radiobutton(ventana, text="Tanque de 5400 m³", variable=var_tipo_tanque, value=1).pack()
-tk.Radiobutton(ventana, text="Tanque de 4100 m³", variable=var_tipo_tanque, value=2).pack()
-
-tk.Button(ventana, text="Calcular", command=calcular_contenido).pack()
-
-resultado = tk.Label(ventana, text="")
-resultado.pack()
-
-# Iniciar el bucle principal
-ventana.mainloop()
+if __name__ == "__main__":
+    main()
