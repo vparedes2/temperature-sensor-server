@@ -1,4 +1,4 @@
- import streamlit as st
+import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
 from alpha_vantage.timeseries import TimeSeries
