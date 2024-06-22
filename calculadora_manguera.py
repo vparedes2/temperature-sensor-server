@@ -31,3 +31,5 @@ if st.button("Calcular"):
     st.write(f"Volumen de fluido: {volumen * 1000:.2f} litros")
 
 st.write("Nota: Este cálculo asume que la manguera está en posición horizontal y que el fluido se distribuye uniformemente.")
+
+st.write("Creado por Lic. Paredes Victor")
