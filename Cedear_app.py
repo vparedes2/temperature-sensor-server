@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-import plotly.graph_objects as go
+import plotly.express as px
 from alpha_vantage.timeseries import TimeSeries
 from datetime import datetime, timedelta
 
@@ -59,11 +59,8 @@ def get_historical_data(symbol):
 if selected_cedear:
     data = get_historical_data(selected_cedear)
     
-    fig = go.Figure()
-    fig.add_trace(go.Scatter(x=data.index, y=data['4. close'], mode='lines', name='Precio de cierre'))
-    
+    fig = px.line(data, x=data.index, y='4. close', title=f"Variación de precio - {selected_cedear}")
     fig.update_layout(
-        title=f"Variación de precio - {selected_cedear}",
         xaxis_title="Fecha",
         yaxis_title="Precio",
         height=600
