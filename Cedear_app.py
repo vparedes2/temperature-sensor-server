@@ -1,7 +1,8 @@
 import streamlit as st
-import yfinance as yf
+import pandas_datareader as pdr
 import pandas as pd
 import plotly.graph_objects as go
+from datetime import datetime, timedelta
 
 # Configuración de la página
 st.set_page_config(page_title="CEDEAR Cotizaciones", layout="wide")
@@ -19,11 +20,15 @@ cedears = [
 @st.cache_data(ttl=300)
 def get_prices():
     data = {}
+    end_date = datetime.now()
+    start_date = end_date - timedelta(days=1)
     for cedear in cedears:
-        ticker = yf.Ticker(cedear)
         try:
-            price = ticker.info['regularMarketPrice']
-            data[cedear] = price
+            df = pdr.get_data_yahoo(cedear, start=start_date, end=end_date)
+            if not df.empty:
+                data[cedear] = df['Close'].iloc[-1]
+            else:
+                data[cedear] = None
         except:
             data[cedear] = None
     return pd.DataFrame(list(data.items()), columns=['Símbolo', 'Precio'])
@@ -42,8 +47,9 @@ selected_cedear = st.selectbox("Selecciona un CEDEAR para ver el gráfico", cede
 # Función para obtener datos históricos
 @st.cache_data(ttl=3600)
 def get_historical_data(symbol):
-    ticker = yf.Ticker(symbol)
-    data = ticker.history(period="1mo")
+    end_date = datetime.now()
+    start_date = end_date - timedelta(days=30)
+    data = pdr.get_data_yahoo(symbol, start=start_date, end=end_date)
     return data
 
 # Mostrar gráfico
