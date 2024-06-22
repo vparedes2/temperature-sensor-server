@@ -1,4 +1,4 @@
 streamlit
-pandas-datareader
 pandas
 plotly
+alpha_vantage
