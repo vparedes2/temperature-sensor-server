@@ -54,7 +54,7 @@ Radios de los tanques:
 - Tanque de 5400 m³: {:.2f} m
 - Tanque de 4100 m³: {:.2f} m
 
-creado por Lic. Paredes Victor
+Creado por Lic. Paredes Victor
 """.format(
     math.sqrt(5400 / (3 * math.pi)),
     math.sqrt(4100 / (3 * math.pi))
