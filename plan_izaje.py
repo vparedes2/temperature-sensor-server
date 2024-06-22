@@ -39,3 +39,4 @@ if st.button("Calcular Plan de Izaje"):
         st.warning("¡Precaución! El peso de la carga está muy cerca de la capacidad máxima de la grúa.")
 
 st.write("Nota: Asegúrese de ingresar la capacidad máxima de la grúa correcta para el radio de operación especificado, según la tabla de carga del fabricante.")
+st.write("Creado por Lic. Paredes Victor.")
