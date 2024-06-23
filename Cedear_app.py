@@ -1,6 +1,5 @@
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
 from alpha_vantage.timeseries import TimeSeries
 from datetime import datetime, timedelta
 
@@ -45,7 +44,7 @@ prices_df = get_prices()
 st.dataframe(prices_df)
 
 # Selección de CEDEAR para el gráfico
-selected_cedear = st.selectbox("Selecciona un CEDEAR para ver el gráfico", cedears)
+selected_cedear = st.selectbox("Selecciona un CEDEAR para ver los datos", cedears)
 
 # Función para obtener datos históricos
 @st.cache_data(ttl=3600)
@@ -55,19 +54,12 @@ def get_historical_data(symbol):
     data = data.sort_index()  # Asegurarse de que los datos estén ordenados cronológicamente
     return data.tail(30)  # Devolver los últimos 30 días
 
-# Mostrar gráfico
+# Mostrar datos
 if selected_cedear:
     data = get_historical_data(selected_cedear)
     
-    fig, ax = plt.subplots(figsize=(12, 6))
-    ax.plot(data.index, data['4. close'])
-    ax.set_title(f"Variación de precio - {selected_cedear}")
-    ax.set_xlabel("Fecha")
-    ax.set_ylabel("Precio")
-    plt.xticks(rotation=45)
-    plt.tight_layout()
-    
-    st.pyplot(fig)
+    st.subheader(f"Datos históricos - {selected_cedear}")
+    st.dataframe(data['4. close'])
 
     # Mostrar variaciones
     st.subheader("Variaciones")
@@ -84,3 +76,13 @@ if selected_cedear:
     with col3:
         monthly_change = (data['4. close'].iloc[-1] - data['4. close'].iloc[0]) / data['4. close'].iloc[0] * 100
         st.metric("Variación mensual", f"{monthly_change:.2f}%")
+
+    # Mostrar una representación simple de la tendencia
+    st.subheader("Tendencia")
+    trend = data['4. close'].pct_change().rolling(window=5).mean().iloc[-1]
+    if trend > 0:
+        st.write("📈 Tendencia al alza")
+    elif trend < 0:
+        st.write("📉 Tendencia a la baja")
+    else:
+        st.write("➡️ Tendencia estable")
