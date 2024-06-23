@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-import plotly.graph_objects as go
+import matplotlib.pyplot as plt
 from alpha_vantage.timeseries import TimeSeries
 from datetime import datetime, timedelta
 
@@ -59,17 +59,15 @@ def get_historical_data(symbol):
 if selected_cedear:
     data = get_historical_data(selected_cedear)
     
-    fig = go.Figure()
-    fig.add_trace(go.Scatter(x=data.index, y=data['4. close'], mode='lines', name='Precio de cierre'))
+    fig, ax = plt.subplots(figsize=(12, 6))
+    ax.plot(data.index, data['4. close'])
+    ax.set_title(f"Variación de precio - {selected_cedear}")
+    ax.set_xlabel("Fecha")
+    ax.set_ylabel("Precio")
+    plt.xticks(rotation=45)
+    plt.tight_layout()
     
-    fig.update_layout(
-        title=f"Variación de precio - {selected_cedear}",
-        xaxis_title="Fecha",
-        yaxis_title="Precio",
-        height=600
-    )
-    
-    st.plotly_chart(fig, use_container_width=True)
+    st.pyplot(fig)
 
     # Mostrar variaciones
     st.subheader("Variaciones")
