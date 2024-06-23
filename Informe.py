@@ -63,7 +63,9 @@ if uploaded_file is not None:
             try:
                 # Guardar la imagen en un archivo temporal
                 with tempfile.NamedTemporaryFile(delete=False, suffix=".jpg") as temp_image:
-                    image.save(temp_image.name, format="JPEG")
+                    # Convertir la imagen a RGB antes de guardarla como JPEG
+                    rgb_image = image.convert('RGB')
+                    rgb_image.save(temp_image.name, format="JPEG")
 
                 # Enviar el correo
                 body = f"Comentario del reporte:\n\n{comment}"
