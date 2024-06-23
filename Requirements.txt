@@ -1,4 +1,6 @@
 streamlit
-pandas
-matplotlib
-alpha_vantage
+Pillow
+SpeechRecognition
+sounddevice
+numpy
+scipy
