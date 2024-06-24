@@ -38,7 +38,7 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 # Encabezado
-logo_url = "https://i.imgur.com/wqJHJVv.png"
+logo_url = "https://i.ibb.co/r0gxVDP/logo-RL2-1.jpg"
 st.image(logo_url, width=300)
 st.title("Aplicaciones de Cálculo")
 
