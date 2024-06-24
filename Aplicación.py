@@ -49,7 +49,7 @@ with col1:
     st.markdown('<div class="app-card">', unsafe_allow_html=True)
     st.image("https://i.ibb.co/FDsd5sf/Calendario-2023-Rio-Limay-18-15-cm-4.png", use_column_width=True)
     st.header("Calculadora Volumen de Tanques")
-    st.write("Calcula el volumen de tanques australianos para almacenamiento de agua de fractura de 5000m³.")
+    st.write("Calcula el volumen de tanques australianos para almacenamiento de agua de fractura.")
     st.markdown('[Abrir Calculadora](https://tinyurl.com/volumentanques)')
     st.markdown('</div>', unsafe_allow_html=True)
 
@@ -63,7 +63,7 @@ with col2:
 
 with col3:
     st.markdown('<div class="app-card">', unsafe_allow_html=True)
-    st.image("https://i.imgur.com/example3.jpg", use_column_width=True)
+    st.image("https://i.ibb.co/5vTTCbb/layflat-hose-for-rent-01.jpg", use_column_width=True)
     st.header("Calculadora Volumen Mangueras")
     st.write("Calcula el volumen de mangueras layflat de 12 pulgadas en una tirada en Vaca Muerta.")
     st.markdown('[Abrir Calculadora](https://tinyurl.com/Mangueras)')
