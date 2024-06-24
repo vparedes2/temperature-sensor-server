@@ -55,7 +55,7 @@ with col1:
 
 with col2:
     st.markdown('<div class="app-card">', unsafe_allow_html=True)
-    st.image("https://i.imgur.com/example2.jpg", use_column_width=True)
+    st.image("https://i.ibb.co/wdsgDd9/Elementos-que-complementan-a-las-gruas-de-izaje.jpg", use_column_width=True)
     st.header("Plan de Izaje")
     st.write("Herramienta para planificar operaciones de izaje con hidrogrúas.")
     st.markdown('[Abrir Plan de Izaje](https://tinyurl.com/PlanIzajerl)')
