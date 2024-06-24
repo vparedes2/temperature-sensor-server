@@ -65,7 +65,7 @@ with col3:
     st.markdown('<div class="app-card">', unsafe_allow_html=True)
     st.image("https://i.ibb.co/5vTTCbb/layflat-hose-for-rent-01.jpg", use_column_width=True)
     st.header("Calculadora Volumen Mangueras")
-    st.write("Calcula el volumen de mangueras layflat de 12" o 10" ya desplegada.")
+    st.write("Calcula el volumen de mangueras layflat de 12 o 10 pulgadas ya desplegada.")
     st.markdown('[Abrir Calculadora](https://tinyurl.com/Mangueras)')
     st.markdown('</div>', unsafe_allow_html=True)
 
