@@ -47,7 +47,7 @@ col1, col2, col3 = st.columns(3)
 
 with col1:
     st.markdown('<div class="app-card">', unsafe_allow_html=True)
-    st.image("https://i.imgur.com/example1.jpg", use_column_width=True)
+    st.image("https://i.ibb.co/FDsd5sf/Calendario-2023-Rio-Limay-18-15-cm-4.png", use_column_width=True)
     st.header("Calculadora Volumen de Tanques")
     st.write("Calcula el volumen de tanques australianos para almacenamiento de agua de fractura de 5000m³.")
     st.markdown('[Abrir Calculadora](https://tinyurl.com/volumentanques)')
