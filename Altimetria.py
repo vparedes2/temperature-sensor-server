@@ -50,16 +50,4 @@ def main():
 
     # Input length and maximum altitude
     length = st.number_input("Longitud de la tubería (en metros):")
-    max_altitude = st.number_input("Altitud máxima (en metros):")
-
-    # Input profile
-    profile_str = st.number_input("Perfil del terreno (en metros, separados por comas):", key="profile")
-    profile = [float(value) for value in profile_str.split(",")]
-
-    # Calculate pressure
-    if st.button("Calcular presión"):
-        pressure = calculate_pressure(diameter_inches, length, max_altitude, profile)
-        st.write(f"Presión en el punto más bajo: {pressure:.2f} kPa")
-
-if __name__ == "__main__":
-    main()
+    max_altitude = st
