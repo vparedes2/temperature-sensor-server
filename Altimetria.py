@@ -1,3 +1,5 @@
+import streamlit as st
+
 def calcular_presion(longitud, altitud_maxima, perfil_terreno):
   """
   Calcula la presión en el punto más bajo de una línea flexible.
@@ -34,26 +36,41 @@ def calcular_presion(longitud, altitud_maxima, perfil_terreno):
 
   return presion
 
-# Ejemplo de uso
-longitud = 10  # Longitud de la tubería flexible (en metros)
-altitud_maxima = 50  # Altitud máxima de la tubería flexible (en metros)
-perfil_terreno = [20, 30, 40, 35, 25]  # Perfil del terreno (en metros)
+def main():
+  st.title("Calculadora de presión en tuberías flexibles")
 
-presion = calcular_presion(longitud, altitud_maxima, perfil_terreno)
+  # Seleccionar la longitud de la tubería
+  longitud_opcion = st.selectbox("Longitud de la tubería:", ["10 pulgadas", "12 pulgadas"])
+  if longitud_opcion == "10 pulgadas":
+    longitud = 0.254  # Convertir pulgadas a metros
+  else:
+    longitud = 0.305  # Convertir pulgadas a metros
 
-print(f"Presión en el punto más bajo: {presion:.2f} kPa")
+  # Ingresar la altitud máxima
+  altitud_maxima = st.number_input("Altitud máxima (en metros):")
 
-Explicación del código:
- * Función calcular_presion:
-   * Esta función recibe como argumentos la longitud de la tubería flexible, la altitud máxima y el perfil del terreno.
-   * Calcula la densidad del agua, la gravedad y la presión atmosférica.
-   * Calcula la altura máxima absoluta y la altura mínima absoluta.
-   * Calcula la diferencia de altura.
-   * Calcula la presión en el punto más bajo utilizando la fórmula de la presión hidrostática.
-   * Devuelve la presión en kPa.
- * Ejemplo de uso:
-   * Se definen variables para la longitud, la altitud máxima y el perfil del terreno.
-   * Se llama a la función calcular_presion para calcular la presión en el punto más bajo.
-   * Se imprime el resultado en la consola.
+  # Ingresar el perfil del terreno
+  perfil_terreno = st.number_input("Perfil del terreno (en metros, separados por comas):", key="perfil_terreno")
+  perfil_terreno = [float(valor) for valor in perfil_terreno.split(",")]
+
+  # Calcular la presión
+  if st.button("Calcular presión"):
+    presion = calcular_presion(longitud, altitud_maxima, perfil_terreno)
+    st.write(f"Presión en el punto más bajo: {presion:.2f} kPa")
+
+if __name__ == "__main__":
+  main()
+
+Explicación de las optimizaciones:
+ * Uso de st.title para el título de la aplicación.
+ * Uso de st.selectbox para seleccionar la longitud de la tubería.
+ * Uso de st.number_input para ingresar la altitud máxima y el perfil del terreno.
+ * Uso de st.button para activar el cálculo de la presión.
+ * Visualización del resultado del cálculo con st.write.
+Otras mejoras que se pueden implementar:
+ * Validación de entrada de datos: Se puede verificar que la altitud máxima y el perfil del terreno sean valores numéricos válidos.
+ * Manejo de errores: Se puede implementar un manejo de errores para mostrar mensajes de error en caso de que haya algún problema con los datos ingresados.
+ * Visualización de gráficos: Se pueden crear gráficos para mostrar el perfil del terreno y la distribución de la presión a lo largo de la tubería.
+ * Implementación de un selector de unidades: Se puede permitir al usuario seleccionar las unidades de medida que desea utilizar (por ejemplo, metros y kPa, o pies y psi).
 Nota:
-Este código es un ejemplo básico y no tiene en cuenta todos los factores que pueden afectar la presión en una línea flexible, como la fricción y la viscosidad del agua. Para obtener resultados más precisos, se recomienda utilizar un software de ingeniería hidráulica más avanzado.
+Este código es un ejemplo básico y no tiene en cuenta todos los factores que pueden afectar la presión en una línea flexible. Para obtener resultados más precisos, se recomienda utilizar un software de ingeniería hidráulica más avanzado.
