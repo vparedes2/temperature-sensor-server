@@ -60,17 +60,3 @@ def main():
 
 if __name__ == "__main__":
   main()
-
-Explicación de las optimizaciones:
- * Uso de st.title para el título de la aplicación.
- * Uso de st.selectbox para seleccionar la longitud de la tubería.
- * Uso de st.number_input para ingresar la altitud máxima y el perfil del terreno.
- * Uso de st.button para activar el cálculo de la presión.
- * Visualización del resultado del cálculo con st.write.
-Otras mejoras que se pueden implementar:
- * Validación de entrada de datos: Se puede verificar que la altitud máxima y el perfil del terreno sean valores numéricos válidos.
- * Manejo de errores: Se puede implementar un manejo de errores para mostrar mensajes de error en caso de que haya algún problema con los datos ingresados.
- * Visualización de gráficos: Se pueden crear gráficos para mostrar el perfil del terreno y la distribución de la presión a lo largo de la tubería.
- * Implementación de un selector de unidades: Se puede permitir al usuario seleccionar las unidades de medida que desea utilizar (por ejemplo, metros y kPa, o pies y psi).
-Nota:
-Este código es un ejemplo básico y no tiene en cuenta todos los factores que pueden afectar la presión en una línea flexible. Para obtener resultados más precisos, se recomienda utilizar un software de ingeniería hidráulica más avanzado.
