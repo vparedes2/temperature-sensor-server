@@ -1,62 +1,65 @@
 import streamlit as st
+import numpy as np
 
-def calcular_presion(longitud, altitud_maxima, perfil_terreno):
-  """
-  Calcula la presión en el punto más bajo de una línea flexible.
+def calculate_pressure(diameter_inches, length, max_altitude, profile):
+    """
+    Calculates the pressure at the lowest point of a flexible pipe.
 
-  Args:
-    longitud: Longitud de la tubería flexible (en metros).
-    altitud_maxima: Altitud máxima de la tubería flexible (en metros).
-    perfil_terreno: Lista de puntos de altura a lo largo del trazado de la tubería (en metros).
+    Args:
+        diameter_inches (float): Diameter of the pipe in inches.
+        length (float): Length of the pipe in meters.
+        max_altitude (float): Maximum altitude of the pipe in meters.
+        profile (list[float]): List of altitude values along the pipe profile in meters.
 
-  Returns:
-    Presión en el punto más bajo de la tubería flexible (en kPa).
-  """
+    Returns:
+        float: Pressure at the lowest point in kilopascals (kPa).
+    """
 
-  # Calcular la densidad del agua (en kg/m^3)
-  densidad_agua = 1000
+    # Convert diameter from inches to meters
+    diameter_meters = diameter_inches * 0.0254
 
-  # Calcular la gravedad (en m/s^2)
-  gravedad = 9.81
+    # Calculate the cross-sectional area of the pipe
+    area = np.pi * (diameter_meters / 2) ** 2
 
-  # Calcular la presión atmosférica (en kPa)
-  presion_atmosferica = 101.3
+    # Calculate the density of water
+    water_density = 1000  # kg/m^3
 
-  # Calcular la altura máxima absoluta (en metros)
-  altura_maxima_absoluta = altitud_maxima + max(perfil_terreno)
+    # Calculate the acceleration due to gravity
+    gravity = 9.81  # m/s^2
 
-  # Calcular la altura mínima absoluta (en metros)
-  altura_minima_absoluta = altitud_maxima + min(perfil_terreno)
+    # Calculate the minimum altitude
+    min_altitude = max_altitude - min(profile)
 
-  # Calcular la diferencia de altura (en metros)
-  diferencia_altura = altura_maxima_absoluta - altura_minima_absoluta
+    # Calculate the pressure difference
+    pressure_difference = water_density * gravity * (max_altitude - min_altitude)
 
-  # Calcular la presión en el punto más bajo (en kPa)
-  presion = presion_atmosferica + (densidad_agua * gravedad * diferencia_altura) / 1000
+    # Calculate the pressure at the lowest point
+    pressure = pressure_difference / area
 
-  return presion
+    return pressure * 1000  # Convert from Pa to kPa
 
 def main():
-  st.title("Calculadora de presión en tuberías flexibles")
+    st.title("Calculadora de presión en tuberías flexibles")
 
-  # Seleccionar la longitud de la tubería
-  longitud_opcion = st.selectbox("Longitud de la tubería:", ["10 pulgadas", "12 pulgadas"])
-  if longitud_opcion == "10 pulgadas":
-    longitud = 0.254  # Convertir pulgadas a metros
-  else:
-    longitud = 0.305  # Convertir pulgadas a metros
+    # Select pipe diameter
+    diameter_option = st.selectbox("Diámetro de la tubería:", ["10 pulgadas", "12 pulgadas"])
+    if diameter_option == "10 pulgadas":
+        diameter_inches = 10
+    else:
+        diameter_inches = 12
 
-  # Ingresar la altitud máxima
-  altitud_maxima = st.number_input("Altitud máxima (en metros):")
+    # Input length and maximum altitude
+    length = st.number_input("Longitud de la tubería (en metros):")
+    max_altitude = st.number_input("Altitud máxima (en metros):")
 
-  # Ingresar el perfil del terreno
-  perfil_terreno = st.number_input("Perfil del terreno (en metros, separados por comas):", key="perfil_terreno")
-  perfil_terreno = [float(valor) for valor in perfil_terreno.split(",")]
+    # Input profile
+    profile_str = st.number_input("Perfil del terreno (en metros, separados por comas):", key="profile")
+    profile = [float(value) for value in profile_str.split(",")]
 
-  # Calcular la presión
-  if st.button("Calcular presión"):
-    presion = calcular_presion(longitud, altitud_maxima, perfil_terreno)
-    st.write(f"Presión en el punto más bajo: {presion:.2f} kPa")
+    # Calculate pressure
+    if st.button("Calcular presión"):
+        pressure = calculate_pressure(diameter_inches, length, max_altitude, profile)
+        st.write(f"Presión en el punto más bajo: {pressure:.2f} kPa")
 
 if __name__ == "__main__":
-  main()
+    main()
