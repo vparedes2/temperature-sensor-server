@@ -38,7 +38,7 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 # Encabezado
-logo_url = "https://i.ibb.co/r0gxVDP/logo-RL2-1.jpg"
+logo_url = "https://i.ibb.co/n75Tp9Z/logo-RL2-1.jpg"
 st.image(logo_url, width=300)
 st.title("Aplicaciones de Cálculo Water Transfer")
 
@@ -47,7 +47,7 @@ col1, col2, col3 = st.columns(3)
 
 with col1:
     st.markdown('<div class="app-card">', unsafe_allow_html=True)
-    st.image("https://i.ibb.co/FDsd5sf/Calendario-2023-Rio-Limay-18-15-cm-4.png", use_column_width=True)
+    st.image("https://i.ibb.co/SmLXF95/Calendario-2023-Rio-Limay-18-15-cm-4-1.png", use_column_width=True)
     st.header("Calculadora Volumen de Tanques")
     st.write("Calcula el volumen de tanques australianos para almacenamiento de agua de fractura.")
     st.markdown('[Abrir Calculadora](https://tinyurl.com/volumentanques)')
@@ -63,7 +63,7 @@ with col2:
 
 with col3:
     st.markdown('<div class="app-card">', unsafe_allow_html=True)
-    st.image("https://i.ibb.co/5vTTCbb/layflat-hose-for-rent-01.jpg", use_column_width=True)
+    st.image("https://i.ibb.co/JtG73pr/images-1.jpg", use_column_width=True)
     st.header("Calculadora Volumen Mangueras")
     st.write("Calcula el volumen de mangueras layflat de 12 o 10 pulgadas ya desplegada.")
     st.markdown('[Abrir Calculadora](https://tinyurl.com/Mangueras)')
